@@ -111,10 +111,28 @@ function renderStats(watched, watching, avgRating, topGenre) {
     <button class="refresh-btn" onclick="loadStats()">↺ 새로고침</button>`;
 }
 
-function renderError(msg) {
-  document.getElementById('content').innerHTML = `<div class="error">${msg}</div>`;
+function renderError(msg, showTokenInput = false) {
+  document.getElementById('content').innerHTML = `
+    <div class="error">${msg}</div>
+    <button class="refresh-btn" onclick="resetToken()">토큰 다시 입력</button>
+  `;
 }
 
+ function resetToken() {
+  localStorage.removeItem('rc_notion_token');
+  NOTION_TOKEN = '';
+  renderTokenForm();
+  document.getElementById('content').innerHTML = '';
+}
+
+if (!res.ok) { 
+  renderError(
+    'API 오류: ' + res.status + '<br>토큰 또는 DB 설정을 확인해주세요', 
+    true
+  ); 
+  return; 
+}
+ 
 async function loadStats() {
   if (!NOTION_TOKEN) { renderTokenForm(); document.getElementById('content').innerHTML = ''; return; }
 
