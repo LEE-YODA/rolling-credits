@@ -111,7 +111,7 @@ async function loadStats(){
     let watched=0, watching=0;
 
     pages.forEach(p=>{
-      const status=p.properties["상태"]?.status?.name;
+      const status = p.properties["상태"]?.select?.name;
       if(status==="WATCHED") watched++;
       if(status==="WATCHING") watching++;
     });
