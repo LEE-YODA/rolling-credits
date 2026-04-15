@@ -6,12 +6,12 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end()
   if (req.method !== 'POST') return res.status(405).end()
 
-  const { dbId, body } = req.body
+  const { dbId, apiKey, body } = req.body
 
   const response = await fetch(`https://api.notion.com/v1/databases/${dbId}/query`, {
     method: 'POST',
     headers: {
-      'Authorization': `Bearer ${process.env.NOTION_API_KEY}`,
+      'Authorization': `Bearer ${apiKey}`,
       'Notion-Version': '2022-06-28',
       'Content-Type': 'application/json'
     },
