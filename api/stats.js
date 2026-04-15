@@ -9,8 +9,21 @@ export default async function handler(req, res) {
       }
     });
 
-    const data = await response.json();
-    const pages = data.results;
+   const data = await response.json();
+
+// 👇 여기 추가
+console.log("NOTION 응답:", data);
+
+// 👇 방어 코드
+if (!data.results) {
+  console.error("Notion API 오류:", data);
+  return res.status(500).json({
+    error: "NOTION_ERROR",
+    detail: data
+  });
+}
+
+const pages = data.results;
 
     let movieCount = 0;
     let dramaCount = 0;
