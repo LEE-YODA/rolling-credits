@@ -12,6 +12,7 @@ export default async function handler(req, res) {
    const data = await response.json();
 
 // 👇 여기 추가
+    console.log("DB:", process.env.NOTION_DATABASE_ID);
 console.log("NOTION 응답:", data);
 
 // 👇 방어 코드
